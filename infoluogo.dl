@@ -1,0 +1,42 @@
+#maxint = 6000.
+
+visitato(sassoluca,madagascar,d20061130,7,3,480).
+visitato(bonilaura,madagascar,d19990930,5,1,658).
+visitato(bonilaura,madagascar,d20010507,7,1,725).
+visitato(monicicarla,madagascar,d19960629,6,2,1090).
+
+visitato(pontigiacomo,tanzania,d20091204,3,3,1382).
+visitato(monicicarla,tanzania,d19980804,12,1,1783).
+visitato(sassoluca,tanzania,d20111009,4,2,2500).
+visitato(bonilaura,tanzania,d20070714,4,2,2960).
+
+visitato(bonilaura,kenya,d20070714,4,2,2960).
+
+infoluogo(tanzania, governo, 5).
+infoluogo(tanzania, salute, 1).
+infoluogo(tanzania, clima, 5).
+infoluogo(tanzania, crimine, 7).
+
+infoluogo(madagascar, governo, 10).
+infoluogo(madagascar, salute, 10).
+infoluogo(madagascar, clima, 10).
+infoluogo(madagascar, crimine, 10).
+
+infoluogo(kenya, governo, 10).
+infoluogo(kenya, salute, 10).
+infoluogo(kenya, clima, 10).
+infoluogo(kenya, crimine, 10).
+
+
+% luoghi visitati nell'ultimo anno
+% richiede in input una serie di informazioni sui luoghi visitati nell'ultimo anno
+% restituisce in output, quante volte ogni luogo è stato visitato unicamente da ogni utente
+diversita(Luogo, R) :- R = #count{X:visitato(X,Luogo,_,_,_,_)}, visitato(_,Luogo,_,_,_,_).
+
+
+daPenalizzare(L, 6) :- infoluogo(L, _, N), N >= 1, N <= 2.
+daPenalizzare(L, 4) :- infoluogo(L, _, N), N >= 3, N <= 4.
+daPenalizzare(L, 2) :- infoluogo(L, _, N), N >= 5, N <= 6.
+penale(L,P) :- P = #sum{N,L:daPenalizzare(L,N)}
+
+% rank(L, R) :- daPenalizzare(L), diversita(L, R), N + 2 = R.

@@ -1,0 +1,8 @@
+#maxint = 100.
+
+luogo(roma). luogo(milano).
+infoluogo(roma, governo, 10). infoluogo(roma, salute, 9). infoluogo(roma, clima, 10). infoluogo(roma, crimine, 6).
+infoluogo(milano, governo, 8). infoluogo(milano, salute, 10). infoluogo(milano, clima, 5). infoluogo(milano, crimine, 7).
+
+somma(City, N) :- luogo(City), N = #sum{V,P:infoluogo(City, P, V)}.
+media(City, N) :- somma(City, X), 
